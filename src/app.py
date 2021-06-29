@@ -18,9 +18,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # db_uri = app.config['SQLALCHEMY_DATABASE_URI'] = \
 #     db_path.as_uri().replace("file://", "sqlite://")
-# db_uri = "sqlite:///data.db"
-db_uri = 'sqlite:///' + str(db_path)
-print(db_uri)  # for debugging
+db_uri = "sqlite:///data.db"
+# print(db_uri)  # for debugging
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.secret_key = 'quetzalcoatl'
 api = Api(app)
