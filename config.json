@@ -1,0 +1,5 @@
+{
+  "database": {
+    "path": "data/data.db"
+  }
+}
