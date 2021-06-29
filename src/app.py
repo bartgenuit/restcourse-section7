@@ -16,10 +16,19 @@ db_path = config['db_path']
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = \
-    db_path.as_uri().replace("file://", "sqlite:///")
+# db_uri = app.config['SQLALCHEMY_DATABASE_URI'] = \
+#     db_path.as_uri().replace("file://", "sqlite://")
+db_uri = "sqlite:///data.db"
+# print(db_uri)  # for debugging
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.secret_key = 'quetzalcoatl'
 api = Api(app)
+
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
 
 jwt = JWT(app, authenticate, identity)  # /auth
 
