@@ -21,7 +21,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #     db_path.as_uri().replace("file://", "sqlite://")
 db_uri_local = "sqlite:///data.db"
 # print(db_uri_local)  # for debugging
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', db_uri_local)
+if os.environ.get('DATABASE_URL'):
+    db_uri = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://")
+else:
+    db_uri = db_uri_local
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.secret_key = 'quetzalcoatl'
 api = Api(app)
 
