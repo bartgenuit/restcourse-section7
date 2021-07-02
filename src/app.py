@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_jwt import JWT
 from flask_restful import Api
@@ -16,11 +17,11 @@ db_path = config['db_path']
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# db_uri = app.config['SQLALCHEMY_DATABASE_URI'] = \
+# db_uri_local = app.config['SQLALCHEMY_DATABASE_URI'] = \
 #     db_path.as_uri().replace("file://", "sqlite://")
-db_uri = "sqlite:///data.db"
-# print(db_uri)  # for debugging
-app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+db_uri_local = "sqlite:///data.db"
+# print(db_uri_local)  # for debugging
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', db_uri_local)
 app.secret_key = 'quetzalcoatl'
 api = Api(app)
 
