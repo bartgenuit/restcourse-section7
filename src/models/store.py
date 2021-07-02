@@ -7,7 +7,7 @@ class StoreModel(db.Model):
     uid = db.Column('id', db.Integer, primary_key=True)
     name = db.Column(db.String(80), index=True, unique=True)
 
-    items = db.relationship('ItemModel', lazy='dynamic')
+    items = db.relationship('ItemModel', lazy='dynamic', viewonly=True)
 
     def __init__(self, name):
         self.name = name
